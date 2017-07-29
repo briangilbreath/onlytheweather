@@ -3,8 +3,6 @@ import {timeConverter, getIcon} from '../Helpers.js';
 
 class WeatherItem extends Component{
 
-
-
   /**
    * Render out WeatherItem Component
    */

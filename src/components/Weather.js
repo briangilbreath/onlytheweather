@@ -17,6 +17,7 @@ class Weather extends Component{
     if(current.cod == 429){
       return (<div>{current.message}</div>);
     }
+
     let item_time = new Date(current.dt * 1000);
     let hour = item_time.getHours();
     let prefix = 'wi wi-';

@@ -3,15 +3,16 @@ import Slider from 'react-slick';
 import Weather from '../components/Weather.js';
 import WeatherItem from '../components/WeatherItem.js';
 import { withRouter } from 'react-router-dom'
+import '../css/App.css';
 
-class Home extends Component{
-
+class App extends Component {
   constructor(){
     super();
 
     this.api = "http://api.openweathermap.org/data/2.5";
     this.api_key = "c26d5b63c30db5a2d9d6c4b708895eaa";
     this.api_country = "";
+
     this.state = {
         weather_current: [],
         weather_forecast: [],
@@ -24,9 +25,14 @@ class Home extends Component{
 
   };
 
+  getInitialState() {
+    //set initial state of slider
+    return {
+      weather_forecast: "loading ... "
+    };
+  }
 
   componentDidMount() {
-
     //initial mount
     let data = {}
 
@@ -39,35 +45,25 @@ class Home extends Component{
       data.city = this.getLocation(this.getAllWeather);
     }
 
-
   }
 
-  componentWillReceiveProps(newProps){
 
+  componentWillReceiveProps(newProps){
     //back forward button
-    console.log(newProps.match.params.id, 'newprops');
     let data = {};
 
+    //these should pull from some sort of app cache to avoid more calls...
     if(newProps.match.params.id){
       let city = newProps.match.params.id;
       //get weather
-      this.getAllWeather(city)
+      this.getAllWeather(city);
     }else{
       //default city if no new props (aka homepage)
       this.getLocation(this.getAllWeather);
     }
 
-
-
   }
 
-
-  getInitialState() {
-    //set initial state of slider
-    return {
-      weather_forecast: "loading ... "
-    };
-  }
 
   encodeQueryData(data) {
      let ret = [];
@@ -187,17 +183,11 @@ class Home extends Component{
      slidesToScroll: 6
    };
 
+   const weather_list = this.state.weather_forecast.map((item, i) => {
+     return  (<div key={"key-"+i}><WeatherItem item={item}/></div>)
+   });
 
-
-     const weather_list = this.state.weather_forecast.map((item, i) => {
-       return  (<div key={"key-"+i}><WeatherItem item={item}/></div>)
-     });
-
-
-
-
-
-    return(
+   return(
       <div>
 
         <form ref={(input) => this.cityForm = input} className="city-edit" onSubmit={this.updateWeather.bind(this)}>
@@ -205,43 +195,38 @@ class Home extends Component{
           <button type="submit">Get Weather</button>
         </form>
 
-
-
-
         {(this.state.weather_city) ? (
           <h2>Local Weather For: {this.state.weather_city.name}</h2>
         ):(
           <div><h1>Loading...</h1></div>
         )}
 
-
-
-          <div className="featured">
+        <div className="featured">
           {Object.keys(this.state.weather_current).length > 0  ? (
             <Weather current={this.state.weather_current}/>
           ) : (
             <div><h1>Loading...</h1></div>
           )}
-          </div>
+        </div>
 
-
+        <div className="list">
           {weather_list.length > 0 ? (
             <Slider {...settings}>
                   {weather_list}
              </Slider>
           ) : (
-
             <div><h1>Loading...</h1></div>
           )}
-          <br/><br/>
+        </div>
 
-         <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
 
+        <br/><br/>
+
+        <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
 
       </div>
     )
   }
 }
 
-
-export default withRouter(Home);
+export default withRouter(App);
