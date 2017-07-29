@@ -1,0 +1,7 @@
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+#root {
+  text-align: center;
+  padding: 0 2rem;
+}
