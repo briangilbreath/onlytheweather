@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
+
 import Slider from 'react-slick';
+import moment from 'moment-timezone';
+import '../css/App.css';
+
 import Weather from '../components/Weather.js';
 import WeatherItem from '../components/WeatherItem.js';
-import { withRouter } from 'react-router-dom'
-import '../css/App.css';
+import Video from '../components/Video.js';
+
 
 class App extends Component {
   constructor(){
@@ -16,20 +21,24 @@ class App extends Component {
     this.state = {
         weather_current: [],
         weather_forecast: [],
-        weather_city:[]
+        weather_city:[],
+        weather_timezone: "",
+        weather_localetime_h: "",
+        weather_localetime_formatted:""
     };
 
     this.getForecast = this.getForecast.bind(this);
     this.getWeather = this.getWeather.bind(this);
     this.getAllWeather = this.getAllWeather.bind(this);
+    this.getTimeZone = this.getTimeZone.bind(this);
 
   };
 
   getInitialState() {
     //set initial state of slider
-    return {
-      weather_forecast: "loading ... "
-    };
+    // return {
+    //   weather_forecast: "loading ... "
+    // };
   }
 
   componentDidMount() {
@@ -64,13 +73,13 @@ class App extends Component {
 
   }
 
-
   encodeQueryData(data) {
      let ret = [];
      for (let d in data)
        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
      return ret.join('&');
   }
+
 
   assembleParams(city, id=this.api_key){
     var data = {
@@ -82,6 +91,9 @@ class App extends Component {
     return querystring;
   }
 
+
+
+
   getAllWeather(city){
     //get weather
     var data = {};
@@ -92,6 +104,8 @@ class App extends Component {
     this.getForecast(data);
     this.getWeather(data);
   }
+
+
 
   getLocation(callback){
 
@@ -116,7 +130,7 @@ class App extends Component {
         .then( (response) => {
             return response.json() })
                 .then( (json) => {
-                  console.log(json);
+                  //console.log(json);
                     this.setState({
                       weather_forecast: json.list,
                       weather_city: json.city
@@ -141,14 +155,45 @@ class App extends Component {
 
             return response.json() })
                 .then( (json) => {
-                  console.log(json);
+                  console.log(json, "current");
                     this.setState({
                       weather_current: json
                     });
+
+                    this.dt = json.dt;
+
+                    this.getTimeZone(json.coord.lat, json.coord.lon, json.dt);
+
                 });
 
     //clear form
     this.cityForm.reset();
+  }
+
+
+
+
+
+
+  getTimeZone(lat, long, time){
+
+    fetch('https://maps.googleapis.com/maps/api/timezone/json?location='+lat+','+long+'&timestamp='+time+'&sensor=false')
+        .then( (response) => {
+            return response.json() })
+                .then( (json) => {
+                  //console.log(json.timeZoneId, "timezone");
+
+                let datetime = new Date(time * 1000);
+                let localetime = moment.tz(datetime, json.timeZoneId);
+                console.log(localetime.format('LLL'));
+
+                this.setState({
+                  weather_timezone: json.timeZoneId,
+                  weather_localetime_h: localetime.format('H'),
+                  weather_localetime_formatted: localetime.format('LLLz')
+                });
+                });
+
   }
 
   /**
@@ -189,40 +234,57 @@ class App extends Component {
 
    return(
       <div>
-
-        <form ref={(input) => this.cityForm = input} className="city-edit" onSubmit={this.updateWeather.bind(this)}>
-          <input ref={(input) => this.city = input} type="text" placeholder="City" />
-          <button type="submit">Get Weather</button>
-        </form>
-
-        {(this.state.weather_city) ? (
-          <h2>Local Weather For: {this.state.weather_city.name}</h2>
-        ):(
-          <div><h1>Loading...</h1></div>
-        )}
-
         <div className="featured">
+
           {Object.keys(this.state.weather_current).length > 0  ? (
-            <Weather current={this.state.weather_current}/>
+            <Video time_h={this.state.weather_localetime_h} current={this.state.weather_current}/>
           ) : (
-            <div><h1>Loading...</h1></div>
+            <div></div>
           )}
+
+
+          <div className="header">
+
+            <form ref={(input) => this.cityForm = input} className="city-edit" onSubmit={this.updateWeather.bind(this)}>
+              <input ref={(input) => this.city = input} type="text" placeholder="City" />
+              <button type="submit">Get Weather</button>
+            </form>
+
+            {(this.state.weather_city) ? (
+              <h2>{this.state.weather_city.name} - <span>{this.state.weather_localetime_formatted} </span></h2>
+            ):(
+              <div></div>
+            )}
+
+          </div>
+
+          {Object.keys(this.state.weather_current).length > 0  ? (
+            <Weather current={this.state.weather_current} />
+          ) : (
+            <div></div>
+          )}
+
+          <div className="list">
+            {weather_list.length > 0 ? (
+              <Slider {...settings}>
+                    {weather_list}
+               </Slider>
+            ) : (
+              <div></div>
+            )}
+          </div>
+
         </div>
 
-        <div className="list">
-          {weather_list.length > 0 ? (
-            <Slider {...settings}>
-                  {weather_list}
-             </Slider>
-          ) : (
-            <div><h1>Loading...</h1></div>
-          )}
+
+
+
+        <div className="credits">
+        <p>Weather provided by OpenWeatherAPI</p>
+        <p>Free B Roll by <a rel="nofollow" href="http://www.videezy.com">Videezy</a></p>
+        <p>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</p>
+        <p> App by Brian Gilbreath </p>
         </div>
-
-
-        <br/><br/>
-
-        <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
 
       </div>
     )

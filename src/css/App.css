@@ -7,20 +7,37 @@ body {
   font-family: sans-serif;
 }
 
-#root {
-  text-align: center;
-  padding: 0 2rem;
+iframe{
+  border: 0;
 }
 
 .wi{
   padding: 1rem;
 }
+
 .wi:before{
   font-size: 4em;
 }
 
+.header{
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+}
+
 .featured{
-  background: #f1f1f1;
+  background: #000;
+  margin-bottom: 2rem;
+  height: 100vh;
+  min-height: 768px;
+  position: relative;
+  color:#fff;
+}
+
+.current{
+  position: absolute;
+  bottom: 2rem;
+  left:2rem;
 }
 
 .current .wi{
@@ -28,6 +45,8 @@ body {
   display: inline-block;
   vertical-align: middle;
   font-weight: bold;
+  padding: 0;
+  margin-right:.5rem;
 }
 
 .current .description{
@@ -38,3 +57,39 @@ body {
 .current .temperature{
   font-size: 8rem;
 }
+
+.list{
+  text-align: center;
+  position: absolute;
+  right: 4rem;
+  bottom: 2rem;
+  width: 60%;
+  font-size: .5em;
+}
+
+.slick-track .slick-active:nth-child(6n+1) .icon{
+  animation-delay: 0;
+}
+
+.slick-track .slick-active:nth-child(6n+2) .icon{
+  animation-delay: .5s;
+}
+
+.slick-track .slick-active:nth-child(6n+3) .icon{
+  animation-delay: 1s;
+}
+
+.slick-track .slick-active:nth-child(6n+4) .icon{
+  animation-delay: 1.5s;
+}
+
+.slick-track .slick-active:nth-child(6n+5) .icon{
+  animation-delay: 2s;
+}
+
+.slick-track .slick-active:nth-child(6n+6) .icon{
+  animation-delay: 2.5s;
+}
+
+.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; }
+.embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }

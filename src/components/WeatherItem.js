@@ -18,7 +18,8 @@ class WeatherItem extends Component{
     let hour = item_time.getHours();
     let icon = getIcon(hour, code);
 
-    return (<div className={prefix + icon}>
+    return (<div>
+           <div className={prefix + icon + " icon animated fadeInUp"}></div>
            <h2>{time}</h2>
            {item.weather[0].description}
          </div>)

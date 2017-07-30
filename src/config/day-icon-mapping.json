@@ -1,367 +1,441 @@
 {
   "200": {
     "label": "thunderstorm with light rain",
-    "icon": "storm-showers"
+    "icon": "storm-showers",
+    "video": "217754063"
   },
 
   "201": {
     "label": "thunderstorm with rain",
-    "icon": "storm-showers"
+    "icon": "storm-showers",
+    "video": "177819853"
   },
 
   "202": {
     "label": "thunderstorm with heavy rain",
-    "icon": "storm-showers"
+    "icon": "storm-showers",
+    "video": "56628347"
   },
 
   "210": {
     "label": "light thunderstorm",
-    "icon": "storm-showers"
+    "icon": "storm-showers",
+    "video": "177819853"
   },
 
   "211": {
     "label": "thunderstorm",
-    "icon": "thunderstorm"
+    "icon": "thunderstorm",
+    "video": "137078175"
   },
 
   "212": {
     "label": "heavy thunderstorm",
-    "icon": "thunderstorm"
+    "icon": "thunderstorm",
+    "video": "56628347"
   },
 
   "221": {
     "label": "ragged thunderstorm",
-    "icon": "thunderstorm"
+    "icon": "thunderstorm",
+    "video": "137078175"
   },
 
   "230": {
     "label": "thunderstorm with light drizzle",
-    "icon": "storm-showers"
+    "icon": "storm-showers",
+    "video": "137078175"
   },
 
   "231": {
     "label": "thunderstorm with drizzle",
-    "icon": "storm-showers"
+    "icon": "storm-showers",
+    "video": "137078175"
   },
 
   "232": {
     "label": "thunderstorm with heavy drizzle",
-    "icon": "storm-showers"
+    "icon": "storm-showers",
+    "video": "137078175"
   },
 
   "300": {
     "label": "light intensity drizzle",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "137078175"
   },
 
   "301": {
     "label": "drizzle",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "137078175"
   },
 
   "302": {
     "label": "heavy intensity drizzle",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "217754063"
   },
 
   "310": {
     "label": "light intensity drizzle rain",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "217754063"
   },
 
   "311": {
     "label": "drizzle rain",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "226632913"
   },
 
   "312": {
     "label": "heavy intensity drizzle rain",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "226632913"
   },
 
   "313": {
     "label": "shower rain and drizzle",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "226635374"
   },
 
   "314": {
     "label": "heavy shower rain and drizzle",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "226635374"
   },
 
   "321": {
     "label": "shower drizzle",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "135873647"
   },
 
   "500": {
     "label": "light rain",
-    "icon": "rain"
+    "icon": "rain",
+    "video": "226635374"
   },
 
   "501": {
     "label": "moderate rain",
-    "icon": "rain"
+    "icon": "rain",
+    "video": "226632887"
   },
 
   "502": {
     "label": "heavy intensity rain",
-    "icon": "rain"
+    "icon": "rain",
+    "video": "226632887"
   },
 
   "503": {
     "label": "very heavy rain",
-    "icon": "rain"
+    "icon": "rain",
+    "video": "203079890"
   },
 
   "504": {
     "label": "extreme rain",
-    "icon": "rain"
+    "icon": "rain",
+    "video": "203079890"
   },
 
   "511": {
     "label": "freezing rain",
-    "icon": "rain-mix"
+    "icon": "rain-mix",
+    "video": "226632887"
   },
 
   "520": {
     "label": "light intensity shower rain",
-    "icon": "showers"
+    "icon": "showers",
+    "video": "226632887"
   },
 
   "521": {
     "label": "shower rain",
-    "icon": "showers"
+    "icon": "showers",
+    "video": "203079890"
   },
 
   "522": {
     "label": "heavy intensity shower rain",
-    "icon": "showers"
+    "icon": "showers",
+    "video": "203079890"
   },
 
   "531": {
     "label": "ragged shower rain",
-    "icon": "showers"
+    "icon": "showers",
+    "video": "203079890"
   },
 
   "600": {
     "label": "light snow",
-    "icon": "snow"
+    "icon": "snow",
+    "video": "143368825"
   },
 
   "601": {
     "label": "snow",
-    "icon": "snow"
+    "icon": "snow",
+    "video": "215617488"
   },
 
   "602": {
     "label": "heavy snow",
-    "icon": "snow"
+    "icon": "snow",
+    "video": "215617488"
   },
 
   "611": {
     "label": "sleet",
-    "icon": "sleet"
+    "icon": "sleet",
+    "video": "143368825"
   },
 
   "612": {
     "label": "shower sleet",
-    "icon": "sleet"
+    "icon": "sleet",
+    "video": "143368825"
   },
 
   "615": {
     "label": "light rain and snow",
-    "icon": "rain-mix"
+    "icon": "rain-mix",
+    "video": "143368825"
   },
 
   "616": {
     "label": "rain and snow",
-    "icon": "rain-mix"
+    "icon": "rain-mix",
+    "video": "143368825"
   },
 
   "620": {
     "label": "light shower snow",
-    "icon": "rain-mix"
+    "icon": "rain-mix",
+    "video": "143368825"
   },
 
   "621": {
     "label": "shower snow",
-    "icon": "rain-mix"
+    "icon": "rain-mix",
+    "video": "143368825"
   },
 
   "622": {
     "label": "heavy shower snow",
-    "icon": "rain-mix"
+    "icon": "rain-mix",
+    "video": "143368825"
   },
 
   "701": {
     "label": "mist",
-    "icon": "sprinkle"
+    "icon": "sprinkle",
+    "video": "226635387"
   },
 
   "711": {
     "label": "smoke",
-    "icon": "smoke"
+    "icon": "smoke",
+    "video": ""
   },
 
   "721": {
     "label": "haze",
-    "icon": "haze"
+    "icon": "haze",
+    "video": "226635387"
   },
 
   "731": {
     "label": "sand, dust whirls",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": "226635387"
   },
 
   "741": {
     "label": "fog",
-    "icon": "fog"
+    "icon": "fog",
+    "video": "226635387"
   },
 
   "751": {
     "label": "sand",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": "226635387"
   },
 
   "761": {
     "label": "dust",
-    "icon": "dust"
+    "icon": "dust",
+    "video": "226635387"
   },
 
   "762": {
     "label": "volcanic ash",
-    "icon": "smog"
+    "icon": "smog",
+    "video": "226635387"
   },
 
   "771": {
     "label": "squalls",
-    "icon": "windy"
+    "icon": "windy",
+    "video": "226635387"
   },
 
   "781": {
     "label": "tornado",
-    "icon": "tornado"
+    "icon": "tornado",
+    "video": "202267654"
   },
 
   "800": {
     "label": "clear sky",
-    "icon": "sunny"
+    "icon": "sunny",
+    "video": "155246338",
+    "video_alt": "70573990"
   },
 
   "801": {
     "label": "few clouds",
-    "icon": "cloudy"
+    "icon": "cloudy",
+    "video": "179739298"
   },
 
   "802": {
     "label": "scattered clouds",
-    "icon": "cloudy"
+    "icon": "cloudy",
+    "video": "171835413"
   },
 
   "803": {
     "label": "broken clouds",
-    "icon": "cloudy-high"
+    "icon": "cloudy-high",
+    "video": "143492926"
   },
 
   "804": {
     "label": "overcast clouds",
-    "icon": "sunny-overcast"
+    "icon": "sunny-overcast",
+    "video": "206146111"
   },
 
 
   "900": {
     "label": "tornado",
-    "icon": "tornado"
+    "icon": "tornado",
+    "video": "202267654"
   },
 
   "901": {
     "label": "tropical storm",
-    "icon": "hurricane"
+    "icon": "hurricane",
+    "video": "177819853"
   },
 
   "902": {
     "label": "hurricane",
-    "icon": "hurricane"
+    "icon": "hurricane",
+    "video": "177819853"
   },
 
   "903": {
     "label": "cold",
-    "icon": "snowflake-cold"
+    "icon": "snowflake-cold",
+    "video": ""
   },
 
   "904": {
     "label": "hot",
-    "icon": "hot"
+    "icon": "hot",
+    "video": ""
   },
 
   "905": {
     "label": "windy",
-    "icon": "windy"
+    "icon": "windy",
+    "video": "193388924"
   },
 
   "906": {
     "label": "hail",
-    "icon": "hail"
+    "icon": "hail",
+    "video": ""
   },
 
   "951": {
     "label": "calm",
-    "icon": "sunny"
+    "icon": "sunny",
+    "video": ""
   },
 
   "952": {
     "label": "light breeze",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": ""
   },
 
   "953": {
     "label": "gentle breeze",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": ""
   },
 
   "954": {
     "label": "moderate breeze",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": ""
   },
 
   "955": {
     "label": "fresh breeze",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": ""
   },
 
   "956": {
     "label": "strong breeze",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": ""
   },
 
   "957": {
     "label": "high wind, near gale",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": ""
   },
 
   "958": {
     "label": "gale",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": ""
   },
 
   "959": {
     "label": "severe gale",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": "137078175"
   },
 
   "960": {
     "label": "storm",
-    "icon": "thunderstorm"
+    "icon": "thunderstorm",
+    "video": "137078175"
   },
 
   "961": {
     "label": "violent storm",
-    "icon": "thunderstorm"
+    "icon": "thunderstorm",
+    "video": "177819853"
   },
 
   "962": {
     "label": "hurricane",
-    "icon": "cloudy-gusts"
+    "icon": "cloudy-gusts",
+    "video": "177819853"
   }
 }

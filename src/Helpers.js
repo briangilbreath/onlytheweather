@@ -29,3 +29,17 @@ export function getIcon(hour, code){
      return icon;
   }
 }
+
+
+export function getVideo(hour, code){
+  if (hour > 6 && hour < 20) {
+      //Day time
+     var video = dayWeatherIcons[code].video;
+     return video;
+
+  } else {
+      //Night time
+     var video = nightWeatherIcons[code].video;
+     return video;
+  }
+}
