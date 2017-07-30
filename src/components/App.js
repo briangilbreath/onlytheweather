@@ -24,7 +24,10 @@ class App extends Component {
         weather_city:[],
         weather_timezone: "",
         weather_localetime_h: "",
-        weather_localetime_formatted:""
+        weather_localetime_formatted:"",
+        classes:{
+          icon: "animated fadeInUp"
+        }
     };
 
     this.getForecast = this.getForecast.bind(this);
@@ -54,6 +57,15 @@ class App extends Component {
       data.city = this.getLocation(this.getAllWeather);
     }
 
+    //once component is loaded, remove classes after 3 seconds
+    setTimeout(() => {
+            this.setState({
+              classes:{
+                icon: ""
+              }
+          })
+        }, 3000);
+
   }
 
 
@@ -70,6 +82,23 @@ class App extends Component {
       //default city if no new props (aka homepage)
       this.getLocation(this.getAllWeather);
     }
+
+    //add classes back
+    this.setState({
+        classes:{
+          icon: "animated fadeInUp"
+        }
+    });
+
+    //remove after 3 seconds
+    setTimeout(() => {
+            this.setState({
+              classes:{
+                icon: ""
+              }
+          })
+        }, 3000);
+
 
   }
 
@@ -103,6 +132,8 @@ class App extends Component {
 
     this.getForecast(data);
     this.getWeather(data);
+
+
   }
 
 
@@ -207,6 +238,12 @@ class App extends Component {
       city: this.city.value
     }
 
+    this.setState({
+      classes:{
+        icon: "animated fadeInUp"
+      }
+    })
+
     this.props.history.push(`/city/${data.city}`);
 
 
@@ -229,7 +266,7 @@ class App extends Component {
    };
 
    const weather_list = this.state.weather_forecast.map((item, i) => {
-     return  (<div key={"key-"+i}><WeatherItem item={item}/></div>)
+     return  (<div key={"key-"+i}><WeatherItem classes={this.state.classes} item={item}/></div>)
    });
 
    return(

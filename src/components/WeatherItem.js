@@ -9,6 +9,7 @@ class WeatherItem extends Component{
   render(){
 
     const item = this.props.item;
+
     console.log(item);
 
     let time = timeConverter(item.dt);
@@ -19,7 +20,7 @@ class WeatherItem extends Component{
     let icon = getIcon(hour, code);
 
     return (<div>
-           <div className={prefix + icon + " icon animated fadeInUp"}></div>
+           <div className={prefix + icon + " icon " + this.props.classes.icon}></div>
            <h2>{time}</h2>
            {item.weather[0].description}
          </div>)
