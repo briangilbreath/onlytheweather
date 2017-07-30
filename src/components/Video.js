@@ -4,7 +4,7 @@ import {getVideo} from '../Helpers.js';
 class Video extends Component{
 
   constructor(){
-super();
+      super();
       this.state ={
         current:{
           weather:[]
