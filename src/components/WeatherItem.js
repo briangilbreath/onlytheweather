@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {timeConverter, getIcon} from '../Helpers.js';
+import moment from 'moment-timezone';
 
 class WeatherItem extends Component{
 
@@ -10,7 +11,6 @@ class WeatherItem extends Component{
 
     const item = this.props.item;
 
-    console.log(item);
 
     let time = timeConverter(item.dt);
     let prefix = 'wi wi-';

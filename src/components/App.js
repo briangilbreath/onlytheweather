@@ -8,6 +8,7 @@ import '../css/App.css';
 import Weather from '../components/Weather.js';
 import WeatherItem from '../components/WeatherItem.js';
 import Video from '../components/Video.js';
+import {assembleParams} from '../Helpers.js';
 
 
 class App extends Component {
@@ -37,12 +38,6 @@ class App extends Component {
 
   };
 
-  getInitialState() {
-    //set initial state of slider
-    // return {
-    //   weather_forecast: "loading ... "
-    // };
-  }
 
   componentDidMount() {
     //initial mount
@@ -57,7 +52,7 @@ class App extends Component {
       data.city = this.getLocation(this.getAllWeather);
     }
 
-    //once component is loaded, remove classes after 3 seconds
+    //once component is loaded, remove classes after 3 second animation
     setTimeout(() => {
             this.setState({
               classes:{
@@ -71,7 +66,6 @@ class App extends Component {
 
   componentWillReceiveProps(newProps){
     //back forward button
-    let data = {};
 
     //these should pull from some sort of app cache to avoid more calls...
     if(newProps.match.params.id){
@@ -98,33 +92,13 @@ class App extends Component {
               }
           })
         }, 3000);
-
-
-  }
-
-  encodeQueryData(data) {
-     let ret = [];
-     for (let d in data)
-       ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-     return ret.join('&');
   }
 
 
-  assembleParams(city, id=this.api_key){
-    var data = {
-      'q': city+','+this.api_country,
-      'appid': id,
-      'units': 'imperial'
-    };
-    var querystring = this.encodeQueryData(data);
-    return querystring;
-  }
-
-
-
-
+  /**
+   * Get Current Weather and Forecast
+   */
   getAllWeather(city){
-    //get weather
     var data = {};
 
     console.log(city, 'passed city');
@@ -132,12 +106,12 @@ class App extends Component {
 
     this.getForecast(data);
     this.getWeather(data);
-
-
   }
 
 
-
+  /**
+   * Get Users Location from API (for intial load with no city)
+   */
   getLocation(callback){
 
     fetch('http://ip-api.com/json')
@@ -154,7 +128,7 @@ class App extends Component {
    */
   getForecast(data, type){
 
-    const params = this.assembleParams(data.city);
+    const params = assembleParams(data.city, this.api_key, this.api_country);
     const city = this.api + "/forecast?" + params;
 
     fetch(city)
@@ -178,7 +152,7 @@ class App extends Component {
    */
   getWeather(data){
 
-    const params = this.assembleParams(data.city);
+    const params = assembleParams(data.city, this.api_key, this.api_country);
     const city = this.api + "/weather?" + params;
 
     fetch(city)
@@ -191,9 +165,10 @@ class App extends Component {
                       weather_current: json
                     });
 
-                    this.dt = json.dt;
+                    if(json.coord){
+                      this.getTimeZone(json.coord.lat, json.coord.lon, json.dt);
+                    }
 
-                    this.getTimeZone(json.coord.lat, json.coord.lon, json.dt);
 
                 });
 
@@ -201,11 +176,9 @@ class App extends Component {
     this.cityForm.reset();
   }
 
-
-
-
-
-
+  /**
+   * Get Timezone from API
+   */
   getTimeZone(lat, long, time){
 
     fetch('https://maps.googleapis.com/maps/api/timezone/json?location='+lat+','+long+'&timestamp='+time+'&sensor=false')
@@ -221,9 +194,9 @@ class App extends Component {
                 this.setState({
                   weather_timezone: json.timeZoneId,
                   weather_localetime_h: localetime.format('H'),
-                  weather_localetime_formatted: localetime.format('LLLz')
+                  weather_localetime_formatted: localetime.format('LLL z')
                 });
-                });
+              });
 
   }
 
@@ -238,18 +211,22 @@ class App extends Component {
       city: this.city.value
     }
 
+    //animate icons
     this.setState({
       classes:{
         icon: "animated fadeInUp"
       }
     })
 
-    this.props.history.push(`/city/${data.city}`);
-
+    //change route on form submit
+    if(data.city){
+      this.props.history.push(`/city/${data.city}`);
+    }
 
     //clear form
     this.cityForm.reset();
   }
+
 
   /**
    * Render out Home Component
@@ -265,9 +242,13 @@ class App extends Component {
      slidesToScroll: 6
    };
 
-   const weather_list = this.state.weather_forecast.map((item, i) => {
-     return  (<div key={"key-"+i}><WeatherItem classes={this.state.classes} item={item}/></div>)
-   });
+   let weather_list = [];
+
+   if (this.state.weather_forecast) {
+      weather_list = this.state.weather_forecast.map((item, i) => {
+       return  (<div key={"key-"+i}><WeatherItem classes={this.state.classes} item={item} timezone={this.state.weather_timezone}/></div>)
+     });
+   }
 
    return(
       <div>
@@ -283,12 +264,15 @@ class App extends Component {
           <div className="header">
 
             <form ref={(input) => this.cityForm = input} className="city-edit" onSubmit={this.updateWeather.bind(this)}>
-              <input ref={(input) => this.city = input} type="text" placeholder="City" />
-              <button type="submit">Get Weather</button>
+              <input className="input" ref={(input) => this.city = input} type="text" placeholder="City" />
+              <button className="button" type="submit">Get Weather</button>
             </form>
 
             {(this.state.weather_city) ? (
-              <h2>{this.state.weather_city.name} - <span>{this.state.weather_localetime_formatted} </span></h2>
+              <div className="current-city">
+              <h2 className="city">{this.state.weather_city.name}</h2>
+              <h4 className="time">{this.state.weather_localetime_formatted}</h4>
+              </div>
             ):(
               <div></div>
             )}
@@ -314,13 +298,13 @@ class App extends Component {
         </div>
 
 
-
-
         <div className="credits">
         <p>Weather provided by OpenWeatherAPI</p>
-        <p>Free B Roll by <a rel="nofollow" href="http://www.videezy.com">Videezy</a></p>
+        <p>Location services provided by ip-api.com</p>
+        <p>Timezone services provided by Google Maps</p>
+        <p>Weather Video provided by Vimeo</p>
         <p>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</p>
-        <p> App by Brian Gilbreath </p>
+        <p>ReactJS App by <a href="http://briangilbreath.com">Brian Gilbreath</a></p>
         </div>
 
       </div>

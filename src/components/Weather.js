@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import moment from 'moment-timezone';
 import {getIcon} from '../Helpers.js';
 
 
 class Weather extends Component{
+
+  constructor(){
+      super();
+      this.state ={
+        current:{
+          weather:[]
+        }
+      };
+  }
 
   componentWillUpdate(nextProps,nextState){
     //alert('will update');
@@ -17,13 +25,18 @@ class Weather extends Component{
     const hour = this.props.time_h;
 
 
-    if(current.cod == 429){
+    if(current.cod === 429){
       return (<div>{current.message}</div>);
     }
 
+    console.log(current.weather);
+    console.log("current weather");
 
-    let item_time = new Date(current.dt * 1000);
-    //  let hour = item_time.getHours();
+
+    if(!current.weather){
+      return(<div className="middle-screen">No current weather for specified city</div>)
+    }
+
     let prefix = 'wi wi-';
     let code = current.weather[0].id;
     let description = current.weather[0].description;
@@ -31,17 +44,12 @@ class Weather extends Component{
     let temp = Math.round(current.main.temp);
 
 
-
-
-
-
-
     return (<div className="current">
               <div className="weather animated fadeInUp">
                 <div className={prefix + icon + " animated fadeInUp"}></div>
                 <div className="description">{description}</div>
              </div>
-             <div className="temperature animated fadeInUp">{temp}°F</div>
+             <div className="temperature animated fadeInUp">{temp}<span>°F</span></div>
           </div>)
 
 
