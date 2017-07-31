@@ -29,9 +29,6 @@ class Weather extends Component{
       return (<div>{current.message}</div>);
     }
 
-    console.log(current.weather);
-    console.log("current weather");
-
 
     if(!current.weather){
       return(<div className="middle-screen">No current weather for specified city</div>)

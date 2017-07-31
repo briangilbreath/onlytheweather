@@ -5,18 +5,29 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: #000;
+}
+
+a{
+  color: #f7f7f7;
 }
 
 iframe{
   border: 0;
 }
 
+.white{
+  color: #fff;
+}
+
 .wi{
-  padding: 1rem;
+  padding: .5rem 0 0;
+  vertical-align: middle;
 }
 
 .wi:before{
   font-size: 4em;
+  font-weight: bold;
 }
 
 .middle-screen{
@@ -30,6 +41,41 @@ iframe{
   right: 0;
   height: 40px;
   text-align: center;
+}
+
+.mobile{
+  display: none;
+}
+
+.desktop{
+  display: block;
+}
+
+@media all and (max-width:767px){
+  .mobile{
+    display: block;
+  }
+
+  .desktop{
+    display: none;
+  }
+}
+
+.input{
+  padding: .5rem;
+  border: 0;
+  background: rgba(0,0,0,.25);
+  color: #fff;
+  border-right: 1px solid #888;
+}
+
+.button{
+  background: rgba(0,0,0,.5);
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  border: 0;
+  padding: .5rem;
+  cursor: pointer;
 }
 
 .header{
@@ -46,6 +92,13 @@ iframe{
   position: relative;
   color:#fff;
   overflow: hidden;
+}
+
+@media all and (max-width:767px){
+  .featured{
+    min-height: 360px;
+    overflow: inherit;
+  }
 }
 
 .featured:after{
@@ -70,6 +123,13 @@ iframe{
   z-index: 2;
 }
 
+@media all and (max-width:767px){
+  .current{
+    bottom: 1rem;
+    left: 1rem;
+  }
+}
+
 .current .wi{
   font-size: .5em;
   display: inline-block;
@@ -88,8 +148,34 @@ iframe{
   font-size: 8rem;
 }
 
+@media all and (max-width:1000px){
+  .current .temperature{
+    font-size: 5rem;
+  }
+}
+
+@media all and (max-width:767px){
+  .current .temperature{
+    font-size: 6rem;
+    line-height: .85em;
+  }
+}
+
 .city-edit{
   margin-left:2rem;
+}
+
+@media all and (max-width:767px){
+  .city-edit {
+    margin: 0 1rem;
+  }
+
+  .city-edit input{
+    width: 64%;
+  }
+  .city-edit button{
+    width: 30%;
+  }
 }
 
 .current-city{
@@ -99,8 +185,13 @@ iframe{
   right:0;
   top: 0;
   width: 50%;
-
   text-align: center;
+}
+
+@media all and (max-width:767px){
+  .current-city{
+    top:2.5rem;
+  }
 }
 
 .current-city .city{
@@ -109,21 +200,78 @@ iframe{
   font-size: 2rem;
 }
 
+@media all and (max-width:767px){
+  .current-city .city{
+    font-size: 1.5rem;
+  }
+}
+
 .current-city .time{
   margin:0;
   font-weight: 100;
   font-size: 1rem;
 }
 
+@media all and (max-width:767px){
+  .current-city .time{
+    font-size: .85rem;
+  }
+}
+
 .list{
+  color:#fff;
   text-align: center;
   position: absolute;
   right: 4rem;
-  bottom: 2rem;
+  bottom: 4rem;
   width: 60%;
   font-size: .5em;
   z-index: 2;
 }
+
+@media all and (max-width:767px){
+  .list{
+    position: relative;
+    width: initial;
+    left: 0;
+    right: 0;
+    font-size: .35em;
+    overflow: hidden;
+    background: #181818;
+    margin: 0 1rem;
+    border-radius: 5px;
+    padding: .5rem 0px;
+  }
+}
+
+.weather-item .wi:before{
+  font-size: 3.5em;
+  font-weight: 100;
+}
+
+.weather-item .time{
+  font-weight: 100;
+  font-size: 0.65rem;
+}
+
+.weather-item .description{
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  padding-top: .5rem;
+  font-size: .85rem;
+  font-weight: 800;
+}
+
+@media all and (max-width:767px){
+  .weather-item .description{
+    margin-left: 0;
+    font-size: .85rem;
+
+  }
+}
+
+
 
 .slick-track .slick-active:nth-child(6n+1) .icon{
   animation-delay: 0;
@@ -149,21 +297,22 @@ iframe{
   animation-delay: 2.5s;
 }
 
+.slick-dots li.slick-active button:before {
+    opacity: .75;
+    color: #fff;
+}
+
+.slick-dots li button:before{
+  color: #fff;
+}
+
 .embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; }
 .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-.input{
-  padding: .5rem;
-  border: 0;
-  background: rgba(0,0,0,.25);
-  color: #fff;
-  border-right: 1px solid #888;
-}
-.button{
-  background: rgba(0,0,0,.5);
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  border: 0;
-  padding: .5rem;
-  cursor: pointer;
+
+.footer{
+  text-align: center;
+  padding: 1rem 0;
+  font-weight: 100;
+  font-size: .65rem;
 }

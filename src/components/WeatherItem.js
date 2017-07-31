@@ -27,11 +27,8 @@ class WeatherItem extends Component{
     if(this.props.timezone){
       localetime = moment.tz(datetime, this.props.timezone);
       hour = localetime.format("H");
-      time = localetime.format("LLL z")
+      time = localetime.calendar();
     }
-
-
-    console.log(localetime);
 
 
     //let time = timeConverter(item.dt);
@@ -41,10 +38,11 @@ class WeatherItem extends Component{
 
     let icon = getIcon(hour, code);
 
-    return (<div>
+    return (<div className="weather-item">
            <div className={prefix + icon + " icon " + this.props.classes.icon}></div>
-           <h2>{time}</h2>
-           {item.weather[0].description}
+           <div className="description">{item.weather[0].description}</div>
+           <h2 className="time">{time}</h2>
+
          </div>)
 
 

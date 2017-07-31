@@ -5,6 +5,7 @@ import Slider from 'react-slick';
 import moment from 'moment-timezone';
 import '../css/App.css';
 
+import CityForm from '../components/CityForm.js';
 import Weather from '../components/Weather.js';
 import WeatherItem from '../components/WeatherItem.js';
 import Video from '../components/Video.js';
@@ -28,15 +29,33 @@ class App extends Component {
         weather_localetime_formatted:"",
         classes:{
           icon: "animated fadeInUp"
-        }
+        },
+        width:"",
+        height:""
     };
 
     this.getForecast = this.getForecast.bind(this);
     this.getWeather = this.getWeather.bind(this);
     this.getAllWeather = this.getAllWeather.bind(this);
     this.getTimeZone = this.getTimeZone.bind(this);
+    this.updateDimensions = this.updateDimensions.bind(this);
+
+
 
   };
+
+  updateDimensions() {
+
+    var w = window,
+        d = document,
+        documentElement = d.documentElement,
+        body = d.getElementsByTagName('body')[0],
+        width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
+        height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
+
+        this.setState({width: width, height: height});
+        // if you are using ES2015 I'm pretty sure you can do this: this.setState({width, height});
+    }
 
 
   componentDidMount() {
@@ -61,6 +80,13 @@ class App extends Component {
           })
         }, 3000);
 
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions);
+
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.updateDimensions);
   }
 
 
@@ -100,8 +126,6 @@ class App extends Component {
    */
   getAllWeather(city){
     var data = {};
-
-    console.log(city, 'passed city');
     data.city = city;
 
     this.getForecast(data);
@@ -142,8 +166,6 @@ class App extends Component {
                     });
                 });
 
-    //clear form
-    this.cityForm.reset();
   }
 
 
@@ -172,8 +194,6 @@ class App extends Component {
 
                 });
 
-    //clear form
-    this.cityForm.reset();
   }
 
   /**
@@ -185,11 +205,9 @@ class App extends Component {
         .then( (response) => {
             return response.json() })
                 .then( (json) => {
-                  //console.log(json.timeZoneId, "timezone");
 
                 let datetime = new Date(time * 1000);
                 let localetime = moment.tz(datetime, json.timeZoneId);
-                console.log(localetime.format('LLL'));
 
                 this.setState({
                   weather_timezone: json.timeZoneId,
@@ -200,47 +218,32 @@ class App extends Component {
 
   }
 
-  /**
-   * Update weather on form submit
-   */
-  updateWeather(event, { history }){
-    event.preventDefault();
-
-    //get city input from form
-    const data = {
-      city: this.city.value
-    }
-
-    //animate icons
-    this.setState({
-      classes:{
-        icon: "animated fadeInUp"
-      }
-    })
-
-    //change route on form submit
-    if(data.city){
-      this.props.history.push(`/city/${data.city}`);
-    }
-
-    //clear form
-    this.cityForm.reset();
-  }
-
 
   /**
    * Render out Home Component
    */
   render(){
 
-    const settings = {
-     arrows:true,
-     dots: true,
-     infinite: true,
-     speed: 500,
-     slidesToShow: 6,
-     slidesToScroll: 6
-   };
+    let settings = {
+      arrows:true,
+      dots: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 6,
+      slidesToScroll: 6
+    };
+
+    if(this.state.width < 767 && this.state.width !== ""){
+      settings = {
+       arrows:false,
+       dots: true,
+       infinite: false,
+       speed: 500,
+       slidesToShow: 4,
+       slidesToScroll: 4
+     };
+    }
+
 
    let weather_list = [];
 
@@ -263,10 +266,7 @@ class App extends Component {
 
           <div className="header">
 
-            <form ref={(input) => this.cityForm = input} className="city-edit" onSubmit={this.updateWeather.bind(this)}>
-              <input className="input" ref={(input) => this.city = input} type="text" placeholder="City" />
-              <button className="button" type="submit">Get Weather</button>
-            </form>
+            <CityForm history={this.props.history} />
 
             {(this.state.weather_city) ? (
               <div className="current-city">
@@ -285,7 +285,7 @@ class App extends Component {
             <div></div>
           )}
 
-          <div className="list">
+          <div className="list desktop">
             {weather_list.length > 0 ? (
               <Slider {...settings}>
                     {weather_list}
@@ -295,17 +295,23 @@ class App extends Component {
             )}
           </div>
 
+
         </div>
 
 
-        <div className="credits">
-        <p>Weather provided by OpenWeatherAPI</p>
-        <p>Location services provided by ip-api.com</p>
-        <p>Timezone services provided by Google Maps</p>
-        <p>Weather Video provided by Vimeo</p>
-        <p>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</p>
-        <p>ReactJS App by <a href="http://briangilbreath.com">Brian Gilbreath</a></p>
+        <div className="list mobile">
+          {weather_list.length > 0 ? (
+            <Slider {...settings}>
+                  {weather_list}
+             </Slider>
+          ) : (
+            <div></div>
+          )}
         </div>
+
+        <p className="footer white">ReactJS App by <a href="http://briangilbreath.com">Brian Gilbreath © 2017</a></p>
+
+
 
       </div>
     )
