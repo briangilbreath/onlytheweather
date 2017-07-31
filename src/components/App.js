@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 import Slider from 'react-slick';
 import moment from 'moment-timezone';
@@ -28,7 +28,8 @@ class App extends Component {
         weather_localetime_h: "",
         weather_localetime_formatted:"",
         classes:{
-          icon: "animated fadeInUp"
+          icon: "animated fadeInUp",
+          current_city: "animated fadeInDown"
         },
         width:"",
         height:""
@@ -43,19 +44,6 @@ class App extends Component {
 
 
   };
-
-  updateDimensions() {
-
-    var w = window,
-        d = document,
-        documentElement = d.documentElement,
-        body = d.getElementsByTagName('body')[0],
-        width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
-        height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
-
-        this.setState({width: width, height: height});
-        // if you are using ES2015 I'm pretty sure you can do this: this.setState({width, height});
-    }
 
 
   componentDidMount() {
@@ -75,7 +63,8 @@ class App extends Component {
     setTimeout(() => {
             this.setState({
               classes:{
-                icon: ""
+                icon: "",
+                current_city: ""
               }
           })
         }, 3000);
@@ -106,7 +95,8 @@ class App extends Component {
     //add classes back
     this.setState({
         classes:{
-          icon: "animated fadeInUp"
+          icon: "animated fadeInUp",
+          current_city: "animated fadeInDown"
         }
     });
 
@@ -114,7 +104,8 @@ class App extends Component {
     setTimeout(() => {
             this.setState({
               classes:{
-                icon: ""
+                icon: "",
+                current_city: ""
               }
           })
         }, 3000);
@@ -220,6 +211,20 @@ class App extends Component {
 
 
   /**
+   * Get Window Dimensions
+   */
+  updateDimensions() {
+    var w = window,
+        d = document,
+        documentElement = d.documentElement,
+        body = d.getElementsByTagName('body')[0],
+        width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
+        height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
+    this.setState({width: width, height: height});
+  }
+
+
+  /**
    * Render out Home Component
    */
   render(){
@@ -233,7 +238,7 @@ class App extends Component {
       slidesToScroll: 6
     };
 
-    if(this.state.width < 767 && this.state.width !== ""){
+    if(this.state.width < 1000 && this.state.width !== ""){
       settings = {
        arrows:false,
        dots: true,
@@ -270,8 +275,8 @@ class App extends Component {
 
             {(this.state.weather_city) ? (
               <div className="current-city">
-              <h2 className="city">{this.state.weather_city.name}</h2>
-              <h4 className="time">{this.state.weather_localetime_formatted}</h4>
+              <h2 className={this.state.classes.current_city + " city "} >{this.state.weather_city.name}</h2>
+              <h4 className={this.state.classes.current_city + " time "} >{this.state.weather_localetime_formatted}</h4>
               </div>
             ):(
               <div></div>
@@ -309,7 +314,7 @@ class App extends Component {
           )}
         </div>
 
-        <p className="footer white">ReactJS App by <a href="http://briangilbreath.com">Brian Gilbreath © 2017</a></p>
+        <p className="footer white">ReactJS App by <a href="http://briangilbreath.com" target="_blank">Brian Gilbreath © 2017</a> - <Link to={`/about`}>About the App</Link></p>
 
 
 
