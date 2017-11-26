@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom'
 
 import Slider from 'react-slick';
 import moment from 'moment-timezone';
+import ReactGA from 'react-ga';
 import '../css/App.css';
 
 import CityForm from '../components/CityForm.js';
@@ -120,6 +121,12 @@ class App extends Component {
 
     this.getForecast(data);
     this.getWeather(data);
+
+    ReactGA.event({
+        category: 'city',
+        action: 'get_weather',
+        label: data.city
+    });
   }
 
 
