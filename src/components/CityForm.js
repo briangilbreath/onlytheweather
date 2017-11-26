@@ -50,8 +50,8 @@ class CityForm extends Component{
 
     return (<div>
       <form className="city-edit" onSubmit={this.handleSubmit}>
-        <input className="input" value={this.state.value} onChange={this.handleChange} type="text" placeholder="City" />
-        <button className="button" type="submit">Get Weather</button>
+        <input className="input" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Enter City Name" />
+        <button className="button" type="submit">Get Weather!</button>
       </form>
 
     </div>)

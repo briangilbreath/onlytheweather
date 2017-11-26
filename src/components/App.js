@@ -18,7 +18,6 @@ class App extends Component {
 
     this.api = "http://api.openweathermap.org/data/2.5";
     this.api_key = "c26d5b63c30db5a2d9d6c4b708895eaa";
-    this.api_country = "";
 
     this.state = {
         weather_current: [],
@@ -143,7 +142,7 @@ class App extends Component {
    */
   getForecast(data, type){
 
-    const params = assembleParams(data.city, this.api_key, this.api_country);
+    const params = assembleParams(data.city, this.api_key);
     const city = this.api + "/forecast?" + params;
 
     fetch(city)
@@ -165,7 +164,7 @@ class App extends Component {
    */
   getWeather(data){
 
-    const params = assembleParams(data.city, this.api_key, this.api_country);
+    const params = assembleParams(data.city, this.api_key);
     const city = this.api + "/weather?" + params;
 
     fetch(city)
@@ -173,7 +172,6 @@ class App extends Component {
 
             return response.json() })
                 .then( (json) => {
-                  console.log(json, "current");
                     this.setState({
                       weather_current: json
                     });
@@ -263,7 +261,9 @@ class App extends Component {
         <div className="featured">
 
           {Object.keys(this.state.weather_current).length > 0  ? (
-            <Video time_h={this.state.weather_localetime_h} current={this.state.weather_current}/>
+            <Video
+              time_h={this.state.weather_localetime_h}
+              current={this.state.weather_current}/>
           ) : (
             <div></div>
           )}
@@ -285,7 +285,10 @@ class App extends Component {
           </div>
 
           {Object.keys(this.state.weather_current).length > 0  ? (
-            <Weather current={this.state.weather_current} />
+            <Weather
+              current={this.state.weather_current}
+              time_h={this.state.weather_localetime_h}
+            />
           ) : (
             <div></div>
           )}
@@ -314,7 +317,7 @@ class App extends Component {
           )}
         </div>
 
-        <p className="footer white">ReactJS App by <a href="http://briangilbreath.com" target="_blank">Brian Gilbreath © 2017</a> - <Link to={`/about`}>About the App</Link></p>
+        <p className="footer white">ReactJS App by <a href="http://briangilbreath.com" target="_blank" rel="noopener noreferrer">Brian Gilbreath © 2017</a> - <Link to={`/about`}>About the App</Link></p>
 
 
 

@@ -10,9 +10,9 @@ function encodeQueryData(data) {
 }
 
 
-export function assembleParams(city, id, country){
+export function assembleParams(city, id){
   var data = {
-    'q': city+','+country,
+    'q': city,
     'appid': id,
     'units': 'imperial'
   };

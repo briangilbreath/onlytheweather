@@ -104,6 +104,7 @@ iframe{
 @media all and (max-width:767px){
   .featured{
     min-height: 360px;
+    height: 85vh;
     overflow: inherit;
   }
 }

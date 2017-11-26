@@ -8,6 +8,7 @@ import About from './pages/About.js';
 
 const Root = () => {
     return(
+      <div>
       <BrowserRouter>
         <Switch>
             <Route exact path="/" component={App} />
@@ -15,6 +16,7 @@ const Root = () => {
             <Route exact path="/about" component={About} />
         </Switch>
       </BrowserRouter>
+    </div>
     )
 }
 
